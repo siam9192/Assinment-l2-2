@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import productService from './product.service';
 import { Product } from './product.interface';
 import { joiProductValidate } from './product.joi.validation';
+import orderMiddleware from '../Order/order.middleware';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
@@ -10,6 +11,7 @@ const createProduct = async (req: Request, res: Response) => {
     if (error) {
       throw new Error(error.message);
     }
+
     const result = await productService.createProductIntoDB(product);
     res.status(200).json({
       success: true,
@@ -74,6 +76,8 @@ const updateSingelProductById = async (req: Request, res: Response) => {
       productId,
       data,
     );
+    console.log(result);
+
     res.status(200).json({
       success: true,
       message: 'Product updated successfully',
@@ -117,6 +121,7 @@ const searchProductByText = async (req: Request, res: Response) => {
     const text: string = req.query.searchTerm;
 
     const result = await productService.searchProductByText(text);
+
     res.status(200).json({
       success: true,
       message: `Products matching search term ${text} fetched successfully!`,

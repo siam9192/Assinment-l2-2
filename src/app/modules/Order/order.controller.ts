@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 import orderService from './order.service';
 import { joiOrderValidate } from './order.validation.joi';
+// import orderMiddleware from './order.middleware';
+import { productModel } from '../Product/product.model';
+import mongoose from 'mongoose';
+import orderMiddleware from './order.middleware';
 const createOrder = async (req: Request, res: Response) => {
   try {
     const order = req.body;
-    const { value, error } = joiOrderValidate.validate(order);
-    if (error) {
-      throw new Error(error.message);
-    }
 
+    await orderMiddleware.handleOrders(req, res);
     const result = await orderService.createOrderIntoDB(order);
 
     res.status(200).json({
@@ -59,6 +60,7 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
 
 const getOrders = async (req: Request, res: Response) => {
   const email = req.query.email;
+  console.log(email);
   if (email) {
     getOrdersByEmail(req, res);
   } else {

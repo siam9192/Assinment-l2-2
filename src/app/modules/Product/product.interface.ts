@@ -4,7 +4,7 @@ export type Variants = {
 };
 
 export type Inventory = {
-  quantity: string;
+  quantity: number;
   inStock: boolean;
 };
 

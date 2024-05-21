@@ -1,8 +1,12 @@
 import { Schema, model } from 'mongoose';
-import { Product, Variants } from './product.interface';
+import { Inventory, Product, Variants } from './product.interface';
 import Joi, { string } from 'joi';
 
 const variantsSchema = new Schema<Variants>({ type: String, value: String });
+const inventorySchema = new Schema<Inventory>({
+  quantity: Number,
+  inStock: Boolean,
+});
 
 const productSchema = new Schema<Product>({
   name: {
@@ -25,12 +29,7 @@ const productSchema = new Schema<Product>({
     type: [variantsSchema],
     required: true,
   },
-  inventory: {
-    type: {
-      quantity: Number,
-      inStock: Boolean,
-    },
-  },
+  inventory: inventorySchema,
 });
 
 productSchema.index({
