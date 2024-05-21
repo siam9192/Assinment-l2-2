@@ -40,21 +40,23 @@ var __importDefault =
 Object.defineProperty(exports, '__esModule', { value: true });
 const mongoose_1 = __importDefault(require('mongoose'));
 const product_model_1 = require('./product.model');
+// Insert the product into db
 const createProductIntoDB = product =>
   __awaiter(void 0, void 0, void 0, function* () {
-    console.log(product);
     return yield product_model_1.productModel.create(product);
   });
 const getAllProducts = () =>
   __awaiter(void 0, void 0, void 0, function* () {
     return yield product_model_1.productModel.find();
   });
+// This function Find the singel product by _id
 const getSingelProductById = id =>
   __awaiter(void 0, void 0, void 0, function* () {
     return yield product_model_1.productModel.findOne({
       _id: new mongoose_1.default.Types.ObjectId(id),
     });
   });
+// This function   Update the singel product which product document will match with given  product _id
 const updateSingelProductById = (id, updateData) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.productModel.updateOne(
@@ -71,12 +73,14 @@ const updateSingelProductById = (id, updateData) =>
       return null;
     }
   });
+//This function  Delete the singel product using product _id
 const deleteSingleProductById = id =>
   __awaiter(void 0, void 0, void 0, function* () {
     return yield product_model_1.productModel.deleteOne({
       _id: new mongoose_1.default.Types.ObjectId(id),
     });
   });
+//This function  Search product documents by word
 const searchProductByText = text =>
   __awaiter(void 0, void 0, void 0, function* () {
     return yield product_model_1.productModel.find({

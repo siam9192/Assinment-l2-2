@@ -8,4 +8,7 @@ const orderSchema = new mongoose_1.Schema({
   price: String,
   quantity: String,
 });
+orderSchema.pre('save', function () {
+  console.log(this);
+});
 exports.orderModel = (0, mongoose_1.model)('orders', orderSchema);

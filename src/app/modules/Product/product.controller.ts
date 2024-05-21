@@ -2,13 +2,12 @@ import { Request, Response } from 'express';
 import productService from './product.service';
 import { Product } from './product.interface';
 import { joiProductValidate } from './product.joi.validation';
-import orderMiddleware from '../Order/order.middleware';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product: Product = req.body;
     // Validate the product using Joi validation package
-    const { value, error } = joiProductValidate.validate(product);
+    const { error } = joiProductValidate.validate(product);
     // If validation is unsuccessful it will give an error
     if (error) {
       throw new Error(error.message);
@@ -27,7 +26,6 @@ const createProduct = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -56,7 +54,7 @@ const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-// 
+//
 const getSingelProductById = async (req: Request, res: Response) => {
   try {
     const productId: string = req.params.productId;
@@ -101,7 +99,7 @@ const deleteSingleProductById = async (req: Request, res: Response) => {
   try {
     const productId: string = req.params.productId;
     const result = await productService.deleteSingleProductById(productId);
-  //  If product document has been successfully deleted
+    //  If product document has been successfully deleted
     if (result.deletedCount) {
       res.status(200).json({
         success: true,

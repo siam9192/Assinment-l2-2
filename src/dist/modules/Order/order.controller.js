@@ -44,7 +44,7 @@ const createOrder = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
       const order = req.body;
-      yield order_middleware_1.default.handleOrders(req, res);
+      yield order_middleware_1.default.handleOrders(req);
       const result = yield order_service_1.default.createOrderIntoDB(order);
       res.status(200).json({
         success: true,
@@ -95,7 +95,7 @@ const getOrdersByEmail = (req, res) =>
 const getOrders = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const email = req.query.email;
-    console.log(email);
+    //  If search with email  query, the product will be  search with the email query value other wise it will give all the order document of the orders collection
     if (email) {
       getOrdersByEmail(req, res);
     } else {

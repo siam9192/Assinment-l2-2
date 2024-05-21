@@ -1,13 +1,18 @@
 import { Request, Response } from 'express';
 import orderService from './order.service';
 import orderMiddleware from './order.middleware';
+import { joiOrderValidate } from './order.validation.joi';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const order = req.body;
+   const {value,error} =  joiOrderValidate.validate(order)
 
-    await orderMiddleware.handleOrders(req, res);
-    const result = await orderService.createOrderIntoDB(order);
+   if(error){
+    throw new Error(error.message)
+   }
+    await orderMiddleware.handleOrders(req);
+    const result = await orderService.createOrderIntoDB(value);
 
     res.status(200).json({
       success: true,

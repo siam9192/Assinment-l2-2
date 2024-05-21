@@ -44,11 +44,14 @@ const createProduct = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
       const product = req.body;
-      const { value, error } =
+      // Validate the product using Joi validation package
+      const { error } =
         product_joi_validation_1.joiProductValidate.validate(product);
+      // If validation is unsuccessful it will give an error
       if (error) {
         throw new Error(error.message);
       }
+      // Insert Product into document and send the response
       const result =
         yield product_service_1.default.createProductIntoDB(product);
       res.status(200).json({
@@ -82,12 +85,14 @@ const getAllProducts = (req, res) =>
 const getProducts = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const text = req.query.searchTerm;
+    //  If search with searchTerm  query, the product will be  search with the query value other wise it will give all the products of the products collection
     if (text) {
       searchProductByText(req, res);
     } else {
       getAllProducts(req, res);
     }
   });
+//
 const getSingelProductById = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -134,6 +139,7 @@ const deleteSingleProductById = (req, res) =>
       const productId = req.params.productId;
       const result =
         yield product_service_1.default.deleteSingleProductById(productId);
+      //  If product document has been successfully deleted
       if (result.deletedCount) {
         res.status(200).json({
           success: true,

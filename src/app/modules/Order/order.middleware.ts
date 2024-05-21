@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import Config from '../../Config';
 
 //  this is a  function that will check the product quantity and give  the response based on the result
 
-const handleOrders = async (req: Request, res: Response) => {
+const handleOrders = async (req: Request) => {
   const order = req.body;
   await mongoose.connect(Config.dataBase_url as string);
 
@@ -16,7 +16,7 @@ const handleOrders = async (req: Request, res: Response) => {
     _id: new mongoose.Types.ObjectId(order.productId),
   });
 
-//   If product is not  available   or ordered quantity is not available then give the error otherwise update the product inventory and accept the order
+  //   If product is not  available   or ordered quantity is not available then give the error otherwise update the product inventory and accept the order
   if (!product) {
     throw new Error('Product not found');
   } else if (
@@ -29,7 +29,6 @@ const handleOrders = async (req: Request, res: Response) => {
       quantity: product.inventory.quantity - order.quantity,
       inStock: product.inventory.quantity - order.quantity === 0 ? false : true,
     };
-    
 
     await collection.updateOne(
       { _id: product._id },

@@ -8,7 +8,7 @@ export type Inventory = {
   inStock: boolean;
 };
 
-export interface Product {
+export type Product = {
   name: string;
   description: string;
   price: number;
@@ -16,4 +16,4 @@ export interface Product {
   tags: Array<string>;
   variants: Array<Variants>;
   inventory: Inventory;
-}
+};

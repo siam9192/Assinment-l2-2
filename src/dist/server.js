@@ -45,11 +45,12 @@ const main = () =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
       yield mongoose_1.default.connect(Config_1.default.dataBase_url);
+      app_1.default.get('/', (req, res) => {
+        res.send({ message: 'Server is running' });
+      });
       app_1.default.listen(Config_1.default.port, () => {
         console.log('Server is running on ' + Config_1.default.port + ' Port');
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   });
 main();

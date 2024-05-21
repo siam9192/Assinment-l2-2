@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import { Inventory, Product, Variants } from './product.interface';
-import Joi, { string } from 'joi';
 
 const variantsSchema = new Schema<Variants>({ type: String, value: String });
 const inventorySchema = new Schema<Inventory>({
