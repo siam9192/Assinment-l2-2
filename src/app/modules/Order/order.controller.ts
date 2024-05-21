@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 import orderService from './order.service';
-import { joiOrderValidate } from './order.validation.joi';
-// import orderMiddleware from './order.middleware';
-import { productModel } from '../Product/product.model';
-import mongoose from 'mongoose';
 import orderMiddleware from './order.middleware';
+
 const createOrder = async (req: Request, res: Response) => {
   try {
     const order = req.body;
@@ -17,7 +14,7 @@ const createOrder = async (req: Request, res: Response) => {
       message: 'Order created successfully!',
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     res.status(400).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -33,7 +30,7 @@ const getAllOrders = async (req: Request, res: Response) => {
       message: 'Order fetched successfully!',
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     res.status(400).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -50,7 +47,7 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
       message: 'Orders fetched successfully for user email!',
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     res.status(400).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -60,7 +57,7 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
 
 const getOrders = async (req: Request, res: Response) => {
   const email = req.query.email;
-  console.log(email);
+  //  If search with email  query, the product will be  search with the email query value other wise it will give all the order document of the orders collection
   if (email) {
     getOrdersByEmail(req, res);
   } else {

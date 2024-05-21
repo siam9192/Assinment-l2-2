@@ -32,24 +32,22 @@ var __awaiter =
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
 Object.defineProperty(exports, '__esModule', { value: true });
-const mongoose_1 = __importDefault(require('mongoose'));
-const Config_1 = __importDefault(require('./Config'));
-const app_1 = __importDefault(require('./app'));
-const main = () =>
+const order_model_1 = require('./order.model');
+const createOrderIntoDB = order =>
   __awaiter(void 0, void 0, void 0, function* () {
-    try {
-      yield mongoose_1.default.connect(Config_1.default.dataBase_url);
-      app_1.default.listen(Config_1.default.port, () => {
-        console.log('Server is running on ' + Config_1.default.port + ' Port');
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    return yield order_model_1.orderModel.create(order);
   });
-main();
+const getAllOrderFromDB = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    return yield order_model_1.orderModel.find();
+  });
+const getOrdersByEmailFromDB = email =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    return yield order_model_1.orderModel.find({ email });
+  });
+exports.default = {
+  createOrderIntoDB,
+  getAllOrderFromDB,
+  getOrdersByEmailFromDB,
+};
