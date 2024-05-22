@@ -5,9 +5,7 @@ import app from './app';
 const main = async () => {
   try {
     await mongoose.connect(Config.dataBase_url as string);
-    app.get('/', (req, res) => {
-   
-    });
+    app.get('/', (req, res) => {});
     app.listen(Config.port, () => {
       console.log('Server is running on ' + Config.port + ' Port');
     });

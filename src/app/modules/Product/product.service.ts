@@ -24,7 +24,7 @@ const updateSingelProductById = async (id: string, updateData: any) => {
   if (result.modifiedCount) {
     return await getSingelProductById(id);
   } else if (!result.acknowledged) {
-    throw new Error('Update not successful!');
+    throw new Error('Update not successful');
   } else if (!result.matchedCount) {
     throw new Error('Document not found');
   } else {

@@ -4,7 +4,7 @@
 
 - command  (npm install) for install all package of this file
 
-- create a  .env file in the file ( ./env )
+- create a  .env file at the parent of this folder
 
 - declare this Environment variable ( PORT, DATABASE_URL) with the value  in the .env file
 

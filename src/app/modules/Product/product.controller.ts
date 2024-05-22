@@ -10,7 +10,7 @@ const createProduct = async (req: Request, res: Response) => {
     const { error } = joiProductValidate.validate(product);
     // If validation is unsuccessful it will give an error
     if (error) {
-      throw new Error(error.message.replace(/"/g,""));
+      throw new Error(error.message.replace(/"/g, ''));
     }
     // Insert Product into document and send the response
     const result = await productService.createProductIntoDB(product);
@@ -45,18 +45,17 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const getProducts = async (req: Request, res: Response) => {
   const text = req.query.searchTerm;
-  const queryLength = (Object.keys(req.query)).length
+  const queryLength = Object.keys(req.query).length;
   //  If search with searchTerm  query, the product will be  search with the query value other wise it will give all the products of the products collection
   if (text) {
     searchProductByText(req, res);
-  } else if(!queryLength) {
+  } else if (!queryLength) {
     getAllProducts(req, res);
-  }
-  else{
+  } else {
     res.status(400).json({
-      success:false,
-      message:"Route not found!"
-    })
+      success: false,
+      message: 'Route not found!',
+    });
   }
 };
 
