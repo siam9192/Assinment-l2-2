@@ -9,4 +9,10 @@ app.use(express.json());
 app.use(cors());
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.use((req, res) => {
+  res.status(400).json({
+    success: false,
+    message: 'Route not found',
+  });
+});
 export default app;
