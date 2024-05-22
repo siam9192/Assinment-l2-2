@@ -2,7 +2,7 @@
 
 ### Follow The steps:
 
-- command  (npm install) for install all package of this file
+- command  (npm install) for install all packages of this project
 
 - create a  .env file at the parent of this folder
 
