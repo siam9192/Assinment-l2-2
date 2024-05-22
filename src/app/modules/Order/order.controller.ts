@@ -8,7 +8,7 @@ const createOrder = async (req: Request, res: Response) => {
     const { value, error } = joiOrderValidate.validate(order);
 
     if (error) {
-      throw new Error(error.message);
+      throw new Error(error.message.replace(/"/g,''));
     }
     // await orderMiddleware.handleOrders(req);
     const result = await orderService.createOrderIntoDB(value);
@@ -61,11 +61,19 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
 
 const getOrders = async (req: Request, res: Response) => {
   const email = req.query.email;
+  const queryLength = (Object.keys(req.query)).length
+  
   //  If search with email  query, the product will be  search with the email query value other wise it will give all the order document of the orders collection
   if (email) {
     getOrdersByEmail(req, res);
-  } else {
+  } else if(!queryLength) {
     getAllOrders(req, res);
+  }
+  else{
+    res.status(400).json({
+      success:false,
+      message:"Route not found!"
+    })
   }
 };
 

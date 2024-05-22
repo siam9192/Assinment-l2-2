@@ -10,9 +10,18 @@ app.use(cors());
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use((req, res) => {
-  res.status(400).json({
-    success: false,
-    message: 'Route not found',
-  });
+  
+  if(req.url !== "/"){
+    res.status(400).json({
+      success: false,
+      message: 'Route not found',
+    });
+    
+  }
+  else{
+    res.status(200).json({
+      message: 'Welcome to Ecommerce management server ',
+    });
+  }
 });
 export default app;
