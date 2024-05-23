@@ -1,4 +1,3 @@
-import { Product } from '../Product/product.interface';
 import { productModel } from '../Product/product.model';
 import { Order } from './order.interface';
 import mongoose, { Schema, model } from 'mongoose';
@@ -6,8 +5,8 @@ import mongoose, { Schema, model } from 'mongoose';
 const orderSchema = new Schema<Order>({
   email: String,
   productId: String,
-  price: String,
-  quantity: String,
+  price: Number,
+  quantity: Number,
 });
 
 orderSchema.pre('save', async function (next) {

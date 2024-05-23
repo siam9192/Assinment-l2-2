@@ -85,7 +85,7 @@ const updateSingelProductById = async (req: Request, res: Response) => {
       productId,
       data,
     );
-    
+
     res.status(200).json({
       success: true,
       message: 'Product updated successfully!',
