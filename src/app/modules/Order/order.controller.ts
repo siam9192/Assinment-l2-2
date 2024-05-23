@@ -10,6 +10,7 @@ const createOrder = async (req: Request, res: Response) => {
     if (error) {
       throw new Error(error.message.replace(/"/g, ''));
     }
+  
     // await orderMiddleware.handleOrders(req);
     const result = await orderService.createOrderIntoDB(value);
 
